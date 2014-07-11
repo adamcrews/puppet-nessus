@@ -1,13 +1,13 @@
 define nessus::user (
-  $ensure     = 'present',
-  $password   = undef,
-  $user_base  = '/opt/nessus/var/nessus/users',
-  $admin      = false,
+  $ensure         = 'present',
+  $password_hash  = undef,
+  $user_base      = '/opt/nessus/var/nessus/users',
+  $admin          = false,
 ) { 
 
   validate_re($ensure, ['^present', '^absent'], "nessus::user \$ensure must be present or absent, not ${ensure}")
   validate_bool($admin)
-  validate_string($password)
+  validate_string($password_hash)
   validate_string($user_base)
 
 
@@ -31,15 +31,10 @@ define nessus::user (
       ensure => directory,
     }
 
-    # set the password in the clear. :-(
-    file { "${user_base}/${title}/auth/password":
-      ensure  => file,
-      content => "${password}\n",
-    }
-
-    # remove the hash, in favor of the password above
+    # set the password_hash. 
     file { "${user_base}/${title}/auth/hash":
-      ensure => absent,
+      ensure  => file,
+      content => "${password_hash}\n",
     }
 
     # if we are an admin, just touch the admin file
