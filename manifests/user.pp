@@ -45,6 +45,10 @@ define nessus::user (
       }
     }
 
+    file { "${user_base}/${title}/auth/rules":
+      ensure => file,
+    }
+
   } elsif $ensure == 'absent' {
     file { "${user_base}/${title}":
       ensure  => absent,
