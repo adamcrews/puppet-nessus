@@ -1,4 +1,4 @@
-class nessus::user (
+define nessus::user (
   $ensure     = 'present',
   $password   = undef,
   $user_base  = '/opt/nessus/var/nessus/users',
