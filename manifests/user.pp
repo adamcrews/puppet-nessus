@@ -12,9 +12,10 @@ define nessus::user (
 
 
   File { 
-    owner => 'root',
-    group => 'root',
-    mode  => '0600',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+    require => Package['nessus'],
   }
 
   # Make sure that there is a toplevel user dir.
