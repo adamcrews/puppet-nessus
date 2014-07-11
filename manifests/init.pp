@@ -55,7 +55,6 @@ class nessus (
 
   anchor { 'nessus::begin': } ->
     class { 'nessus::install': } ->
-    class { 'nessus::activate': } ->
     class { 'nessus::config': } ->
     class { 'nessus::service': } ->
   anchor { 'nessus::end': }
