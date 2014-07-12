@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*activation_code*]
+#   The nessus code used to activate home or professional feeds.
+#
 # [*package_name*]
 #   The name of the package to install
 #
@@ -25,9 +28,15 @@
 #
 # === Examples
 #
-#  class { nessus: 
+#  class { nessus:
 #   activation_code => '9999-XXXX-9999-XXXX'
-#  } 
+#  }
+#
+#  # Create a user.
+#  nessus::user { 'admin':
+#   password => '1adam12_1adam12',
+#   admin    => true,
+#  }
 #
 # === Authors
 #
@@ -38,20 +47,24 @@
 # Copyright 2014 Adam Crews, unless otherwise noted.
 #
 class nessus (
-  $activation_code,
-  $package_name   = $nessus::params::package_name,
-  $package_ensure = $nessus::params::package_ensure,
-  $service_name   = $nessus::params::service_name,
-  $service_ensure = $nessus::params::service_ensure,
-  $service_manage = $nessus::params::service_manage,
+  $activation_code  = undef,
+  $package_name     = $nessus::params::package_name,
+  $package_ensure   = $nessus::params::package_ensure,
+  $service_name     = $nessus::params::service_name,
+  $service_ensure   = $nessus::params::service_ensure,
+  $service_enable   = $nessus::params::service_enable,
+  $service_manage   = $nessus::params::service_manage,
 ) inherits nessus::params {
 
-  validate_string($activation_code)
   validate_string($package_name)
   validate_string($package_ensure)
   validate_string($service_name)
   validate_re($service_ensure, ['^running', '^stopped'], '$service_ensure must be running or stopped')
   validate_bool($service_manage)
+
+  if $activation_code {
+    validate_string($activation_code)
+  }
 
   anchor { 'nessus::begin': } ->
     class { 'nessus::install': } ->

@@ -23,7 +23,7 @@ RSpec.configure do |c|
   # Configure all nodes in nodeset
   c.before :suite do
     # Install module and dependencies
-    puppet_module_install(:source => proj_root, :module_name => 'ntp')
+    puppet_module_install(:source => proj_root, :module_name => 'nessus')
     hosts.each do |host|
       shell("/bin/touch #{default['puppetpath']}/hiera.yaml")
       shell('puppet module install puppetlabs-stdlib', :acceptable_exit_codes => [0,1])

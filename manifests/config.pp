@@ -15,7 +15,7 @@ class nessus::config inherits nessus {
       # Wait, then restart nessusd after activation
       exec { 'Wait 60 seconds for Nessus activation':
         path        => [ '/bin' ],
-        command     => "sleep 60",
+        command     => 'sleep 60',
         refreshonly => true,
         subscribe   => Exec['Activate Nessus'],
         notify      => Service[$service_name],

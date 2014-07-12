@@ -1,10 +1,20 @@
 #nessus
 
-## Overview
+####Table of Contents
 
-The nessus module installs, configures, and manages the nessus vulnerability scanner software.#nessus
+1. [Overview](#overview)
+2. [Setup - The basics](#setup)
+3. [Usage - Configuration options and examples](#usage)
+4. [Reference - Class, parameter, and fact documentation](#reference)
+5. [Limitations](#limitations)
+6. [ToDo](#todo)
+7. [Contributors](#contributors)
 
-## Setup
+##Overview
+
+The nessus module installs, configures, and manages the nessus vulnerability scanner software.
+
+##Setup
 
 `include ::nessus` is sufficient to get nessus installed and running with default settings.  If you wish to activate an update feed, then you can specify an activation_code like this:
 
@@ -17,7 +27,75 @@ class { '::nessus':
 ##Usage
 
 All interaction with the nessus module can be done through the main nessus class.
+You can simply toggle the optios in `::nessus` to have complete functionality.
 
+###Bare minimum setup
+
+```puppet
+include '::nessus'
+```
+
+###Install the professional feed
+
+```puppet
+class { '::nessus':
+  activation_code => 'XXXX-XXXX-XXXX-XXXX'
+}
+```
+
+###Create a user
+```puppet
+nessus::user { 'admin':
+  password  => '1adam12_1adam12',
+  admin     => true,
+}
+```
+
+##Reference
+
+###Classes
+
+####Public Classes
+
+* nessus: Main class, includes all other classes.
+
+####Private Classes
+
+* nessus::install: Handles installing the package.  It must be available in wherever your system pulls packages from.
+* nessus::config: Activate and configure nessus.
+* nessus::service: Handles the service.
+
+###Parameters
+
+The following parameters are available in the ntp module:
+
+####`activation_code`
+
+The code used to download nessus plugin updates.
+
+####`package_name`
+
+The name of the nessus package being installed, defaults to 'Nessus'.
+
+####`package_ensure`
+
+Determines what to do with the package, valid options are present/installed, latest, or absent.
+
+####`service_name`
+
+The service name for nessusd.
+
+####`service_ensure`
+
+Determines the state of the service, valid options are running or stopped.
+
+####`service_manage`
+
+Selects wether puppet should manage the service.
+
+##Facts
+
+* `nessus_activation_code` is set to the code that is active on the node, or undefined if no code is active.
 
 ##Limitations
 
@@ -25,7 +103,9 @@ This module has some tests in place, but not many yet.  Additionally, it is not 
 
 ##ToDo
 
-More test code is needed.
+* Manage nessus config items.
+* More spec tests are needed.
+* Expand supported platforms.  So far only Nessus 5.2.7 on CentOS6 has been tested.
 
 ###Contributors
 

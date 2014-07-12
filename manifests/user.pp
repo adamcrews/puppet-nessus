@@ -1,17 +1,17 @@
 define nessus::user (
-  $ensure         = 'present',
-  $password_hash  = undef,
-  $user_base      = '/opt/nessus/var/nessus/users',
-  $admin          = false,
-) { 
+  $ensure     = 'present',
+  $password   = undef,
+  $user_base  = '/opt/nessus/var/nessus/users',
+  $admin      = false,
+) {
 
   validate_re($ensure, ['^present', '^absent'], "nessus::user \$ensure must be present or absent, not ${ensure}")
   validate_bool($admin)
-  validate_string($password_hash)
+  validate_string($password)
   validate_string($user_base)
 
 
-  File { 
+  File {
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
@@ -31,10 +31,15 @@ define nessus::user (
       ensure => directory,
     }
 
-    # set the password_hash. 
-    file { "${user_base}/${title}/auth/hash":
+    # Set the password.  It's recorded in clear, but the file is only readable by root.
+    file { "${user_base}/${title}/auth/password":
       ensure  => file,
-      content => "${password_hash}\n",
+      content => "${password}\n",
+    }
+
+    # For the clear txt password to work, we need to ensure there is no hash file.
+    file { "${user_base}/${title}/auth/hash":
+      ensure  => absent,
     }
 
     # if we are an admin, just touch the admin file

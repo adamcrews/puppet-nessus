@@ -14,7 +14,7 @@ describe 'nessus class:', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfami
 
   context 'service_ensure => stopped:' do
     it 'runs successfully' do
-      pp = "class { 'ntp': service_ensure => stopped }"
+      pp = "class { 'nessus': service_ensure => stopped }"
 
       apply_manifest(pp, :catch_failures => true) do |r|
         expect(r.stderr.not_to match(/error/i)
@@ -24,7 +24,7 @@ describe 'nessus class:', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfami
 
   context 'service_ensure => running:' do
     it 'runs successfully' do
-      pp = "class { 'ntp': service_ensure => running }"
+      pp = "class { 'nessus': service_ensure => running }"
 
       apply_manifest(pp, :catch_failures => true) do |r|
         expect(r.stderr).not_to match(/error/i)
