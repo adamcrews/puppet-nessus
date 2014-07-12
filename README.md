@@ -1,5 +1,7 @@
 #nessus
 
+[![Build Status](https://travis-ci.org/adamcrews/puppet-nessus.svg)](https://travis-ci.org/adamcrews/puppet-nessus)
+
 ####Table of Contents
 
 1. [Overview](#overview)
