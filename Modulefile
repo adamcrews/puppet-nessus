@@ -1,11 +1,9 @@
 name    'adamcrews-nessus'
 version '0.1.0'
-source 'UNKNOWN'
-author 'adamcrews'
+source 'git://github.com/adamcrews/puppet-nessus'
+author 'Adam Crews'
 license 'Apache License, Version 2.0'
 summary 'Nessus Module'
-description 'Nessus Module for RHEL/CentOS to manage the Nessus Vulnerability scanner.'
-project_page 'UNKNOWN'
-
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+description 'Nessus Module to manage the Nessus Vulnerability scanner.'
+project_page 'https://github.com/adamcrews/puppet-nessus'
+dependency 'puppetlabs/stdlib', '>= 3.2.1'
