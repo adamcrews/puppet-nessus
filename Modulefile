@@ -1,5 +1,5 @@
 name    'adamcrews-nessus'
-version '0.1.0'
+version '0.1.1'
 source 'git://github.com/adamcrews/puppet-nessus'
 author 'Adam Crews'
 license 'Apache License, Version 2.0'
