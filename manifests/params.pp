@@ -4,6 +4,7 @@ class nessus::params {
   $package_ensure = 'installed'
   $service_name   = 'nessusd'
   $service_ensure = 'running'
+  $service_enable = true
   $service_manage = true
 
 }

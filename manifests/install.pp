@@ -5,8 +5,8 @@ class nessus::install inherits nessus {
   }
 
   package { 'nessus':
-    name   => $package_name,
     ensure => $package_ensure,
+    name   => $package_name,
   }
 
 }
