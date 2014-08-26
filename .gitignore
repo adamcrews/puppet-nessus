@@ -21,3 +21,4 @@ spec/fixtures/
 .vagrant/
 .bundle/
 coverage/
+.ruby-version
