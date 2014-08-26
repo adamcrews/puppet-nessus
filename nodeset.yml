@@ -1,7 +1,7 @@
 ---
 default_set: 'centos-65-x64'
 sets:
-  'cetnos-65-x64':
+  'centos-65-x64':
     nodes:
       "main.foo.vm":
-        prefab: 'cetnos-65-x64'
+        prefab: 'centos-65-x64'

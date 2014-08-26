@@ -69,7 +69,7 @@ nessus::user { 'admin':
 
 ###Parameters
 
-The following parameters are available in the ntp module:
+The following parameters are available in the nessus module:
 
 ####`activation_code`
 
