@@ -10,6 +10,8 @@ describe 'nessus::user' do
       :user_base  => '/tmp/foo',
     }}
 
+    it { should contain_nessus__user('joebob') }
+
     it { should contain_file("#{params[:user_base]}").with(
       :ensure => 'directory',
       :owner  => 'root',
@@ -52,7 +54,8 @@ describe 'nessus::user' do
         :admin      => 'Im a string!'
       }}
       it do
-        expect{ should compile }.to raise_error(Puppet::Error)
+        should_not compile
+        #expect{ should compile }.to raise_error(Puppet::Error)
       end
     end
   end
@@ -77,7 +80,8 @@ describe 'nessus::user' do
     }}
 
     it do
-      expect{ should compile }.to raise_error(Puppet::Error)
+      #expect{ should compile }.to raise_error(Puppet::Error)
+      should_not compile
     end
   end
 end

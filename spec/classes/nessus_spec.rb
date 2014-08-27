@@ -5,9 +5,12 @@ describe 'nessus' do
   
     let(:facts) {{ :osfamily => system }}
 
+    it { should contain_anchor('nessus::begin') }
+    it { should contain_class('nessus::params') }
     it { should contain_class('nessus::install') }
     it { should contain_class('nessus::config') }
     it { should contain_class('nessus::service') }
+    it { should contain_anchor('nessus::end') }
 
     describe "nessus::install on #{system}" do
       let(:params) {{ 
