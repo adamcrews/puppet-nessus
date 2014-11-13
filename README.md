@@ -107,7 +107,7 @@ This module has some tests in place, but not many yet.  Additionally, it is not 
 
 * Manage nessus config items.
 * More spec tests are needed.
-* Expand supported platforms.  So far only Nessus 5.2.7 on CentOS6 has been tested.
+* Expand supported platforms.  So far only Nessus 5.2.7 and Nessus 6 on CentOS6 has been tested.
 
 ###Contributors
 
