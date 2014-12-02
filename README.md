@@ -1,6 +1,7 @@
 #nessus
 
 [![Build Status](https://travis-ci.org/adamcrews/puppet-nessus.svg)](https://travis-ci.org/adamcrews/puppet-nessus)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/adamcrews/nessus.svg)](https://forge.puppetlabs.com/adamcrews/nessus)
 
 ####Table of Contents
 
