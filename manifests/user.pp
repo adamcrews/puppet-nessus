@@ -35,11 +35,13 @@ define nessus::user (
     file { "${user_base}/${title}/auth/password":
       ensure  => file,
       content => "${password}\n",
+      notify  => Service['nessus'],
     }
 
     # For the clear txt password to work, we need to ensure there is no hash file.
     file { "${user_base}/${title}/auth/hash":
-      ensure  => absent,
+      ensure => absent,
+      notify => Service['nessus'],
     }
 
     # if we are an admin, just touch the admin file
@@ -47,7 +49,8 @@ define nessus::user (
       ensure => $admin ? {
         true    => file,
         default => absent,
-      }
+      },
+      notify => Service['nessus'],
     }
 
     file { "${user_base}/${title}/auth/rules":
@@ -59,6 +62,7 @@ define nessus::user (
       ensure  => absent,
       backup  => false,
       recurse => true,
+      notify  => Service['nessus'],
     }
   }
 }
