@@ -84,6 +84,10 @@ The name of the nessus package being installed, defaults to 'Nessus'.
 
 Determines what to do with the package, valid options are present/installed, latest, or absent.
 
+####`security_center`
+
+Configure nessus to be connected to Security Center.
+
 ####`service_name`
 
 The service name for nessusd.
