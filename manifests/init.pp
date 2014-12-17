@@ -54,6 +54,7 @@ class nessus (
   $service_ensure   = $nessus::params::service_ensure,
   $service_enable   = $nessus::params::service_enable,
   $service_manage   = $nessus::params::service_manage,
+  $security_center  = $nessus::params::security_center,
 ) inherits nessus::params {
 
   validate_string($package_name)
@@ -61,6 +62,7 @@ class nessus (
   validate_string($service_name)
   validate_re($service_ensure, ['^running', '^stopped'], '$service_ensure must be running or stopped')
   validate_bool($service_manage)
+  validate_bool($security_center)
 
   if $activation_code {
     validate_string($activation_code)
