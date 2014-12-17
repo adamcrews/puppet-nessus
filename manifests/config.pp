@@ -6,14 +6,14 @@ class nessus::config inherits nessus {
 
   if $security_center {
     if $activation_code {
-      fail("security_center and activation_code are mutually exclusive.")
+      fail('security_center and activation_code are mutually exclusive.')
     }
 
     #default for versions without nessuscli
     if $::nessus_cli {
-      $activate_command = "nessuscli fetch --security-center"
+      $activate_command = 'nessuscli fetch --security-center'
     } else {
-      $activate_command = "nessus-fetch --security-center"
+      $activate_command = 'nessus-fetch --security-center'
     }
 
     exec { 'Activate Nessus':
