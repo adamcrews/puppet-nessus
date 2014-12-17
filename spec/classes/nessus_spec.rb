@@ -68,6 +68,23 @@ describe 'nessus' do
         it { should_not contain_exec('Activate Nessus') }
 
       end
+
+      context 'with security_center' do
+        let(:params) {{
+          :security_center => true
+        }}
+
+        it { should contain_exec('Activate Nessus').with(
+          :command => "nessus-fetch --security-center"
+        )}
+
+        it { should contain_exec('Wait 60 seconds for Nessus activation').with(
+          :command      => 'sleep 60',
+          :refreshonly  => true,
+          :notify       => 'Service[nessusd]',
+        ).that_subscribes_to('Exec[Activate Nessus]')
+        }
+      end
     end
 
     describe 'nessus::service' do
