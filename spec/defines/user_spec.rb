@@ -22,7 +22,6 @@ describe 'nessus::user' do
     it { should contain_file("#{params[:user_base]}/#{title}").with_ensure('directory') }
     it { should contain_file("#{params[:user_base]}/#{title}/auth").with_ensure('directory') }
     it { should contain_file("#{params[:user_base]}/#{title}/reports").with_ensure('directory') }
-    it { should contain_file("#{params[:user_base]}/#{title}/files").with_ensure('directory') }
 
     it { should contain_file("#{params[:user_base]}/#{title}/auth/hash").with_ensure('absent') }
     it { should contain_file("#{params[:user_base]}/#{title}/auth/password").with(
