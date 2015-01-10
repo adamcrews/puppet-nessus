@@ -27,7 +27,7 @@ define nessus::user (
 
   if $ensure == 'present' {
     # create our directory structure for a user
-    file { [ "${user_base}/${title}", "${user_base}/${title}/auth", "${user_base}/${title}/reports", "${user_base}/${title}/files" ]:
+    file { [ "${user_base}/${title}", "${user_base}/${title}/auth", "${user_base}/${title}/reports" ]:
       ensure => directory,
     }
 
