@@ -20,6 +20,7 @@ class nessus::config inherits nessus {
       path    => [ '/bin', '/opt/nessus/bin', '/opt/nessus/sbin' ],
       command => "${activate_command} && touch /opt/nessus/var/nessus/security_center_activated",
       creates => '/opt/nessus/var/nessus/security_center_activated',
+      notify  => Exec['Wait 60 seconds for Nessus activation'],
     }
   } else {
     if ! $::nessus_activation_code {
@@ -34,7 +35,8 @@ class nessus::config inherits nessus {
 
         exec { 'Activate Nessus':
           path    => [ '/opt/nessus/bin', '/opt/nessus/sbin' ],
-          command => $activate_command
+          command => $activate_command,
+          notify  => Exec['Wait 60 seconds for Nessus activation'],
         }
       }
     }
@@ -45,7 +47,6 @@ class nessus::config inherits nessus {
     path        => [ '/bin' ],
     command     => 'sleep 60',
     refreshonly => true,
-    subscribe   => Exec['Activate Nessus'],
     notify      => Service[$service_name],
   }
 
