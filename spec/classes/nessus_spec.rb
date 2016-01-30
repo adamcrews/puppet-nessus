@@ -43,7 +43,11 @@ describe 'nessus' do
     end
 
     describe 'nessus::config' do
-      context 'without nessus_activation_code' do
+      context 'without nessus_activation_code or supplied activation_code' do
+        it { should compile }
+      end
+
+      context 'without nessus_activation_code and with supplied activation_code' do
         let(:params) {{
           :activation_code => 'xxxx-xxxx-xxxx-xxxx'
         }}
@@ -66,7 +70,6 @@ describe 'nessus' do
         }}
 
         it { should_not contain_exec('Activate Nessus') }
-
       end
 
       context 'with security_center' do
