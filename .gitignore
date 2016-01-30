@@ -22,3 +22,5 @@ spec/fixtures/
 .bundle/
 coverage/
 .ruby-version
+
+.rake_tasks
