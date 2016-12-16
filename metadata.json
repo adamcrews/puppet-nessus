@@ -1,12 +1,13 @@
 {
   "name": "adamcrews-nessus",
   "version": "0.3.2",
-  "source": "https://github.com/adamcrews/puppet-nessus",
   "author": "Adam Crews",
   "license": "Apache-2.0",
   "summary": "Nessus Module",
   "description": "Nessus Module to manage the Nessus Vulnerability scanner.",
   "project_page": "https://github.com/adamcrews/puppet-nessus",
+  "source": "https://github.com/adamcrews/puppet-nessus",
+  "issues_url": "https://github.com/adamcrews/puppet-nessus/issues",
   "requirements": [
     {
       "name": "pe",
