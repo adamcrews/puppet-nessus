@@ -1,11 +1,12 @@
+# Configure Nessus
 class nessus::config inherits nessus {
 
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $security_center {
-    if $activation_code {
+  if $nessus::security_center {
+    if $nessus::activation_code {
       fail('security_center and activation_code are mutually exclusive.')
     }
 
@@ -25,12 +26,12 @@ class nessus::config inherits nessus {
   } else {
     if ! $::nessus_activation_code {
       # This nessus is not yet activated, let's do it!
-      if $activation_code {
+      if $nessus::activation_code {
         #default for versions without nessuscli
         if $::nessus_cli {
-          $activate_command = "nessuscli fetch --register ${activation_code}"
+          $activate_command = "nessuscli fetch --register ${nessus::activation_code}"
         } else {
-          $activate_command = "nessus-fetch --register ${activation_code}"
+          $activate_command = "nessus-fetch --register ${nessus::activation_code}"
         }
 
         exec { 'Activate Nessus':
@@ -47,7 +48,7 @@ class nessus::config inherits nessus {
     path        => [ '/bin' ],
     command     => 'sleep 60',
     refreshonly => true,
-    notify      => Service[$service_name],
+    notify      => Service[$nessus::service_name],
   }
 
   #TODO:
