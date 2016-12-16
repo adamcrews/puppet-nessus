@@ -47,14 +47,17 @@
 # Copyright 2014 Adam Crews, unless otherwise noted.
 #
 class nessus (
-  $activation_code  = undef,
-  $package_name     = $nessus::params::package_name,
-  $package_ensure   = $nessus::params::package_ensure,
-  $service_name     = $nessus::params::service_name,
-  $service_ensure   = $nessus::params::service_ensure,
-  $service_enable   = $nessus::params::service_enable,
-  $service_manage   = $nessus::params::service_manage,
-  $security_center  = $nessus::params::security_center,
+  $activation_code           = undef,
+  $package_name              = $nessus::params::package_name,
+  $package_ensure            = $nessus::params::package_ensure,
+  $use_local_package_archive = $nessus::params::use_local_package_archive,
+  $package_archive_name      = $nessus::params::package_archive_name,
+  $package_archive_location  = $nessus::params::package_archive_location,
+  $service_name              = $nessus::params::service_name,
+  $service_ensure            = $nessus::params::service_ensure,
+  $service_enable            = $nessus::params::service_enable,
+  $service_manage            = $nessus::params::service_manage,
+  $security_center           = $nessus::params::security_center,
 ) inherits nessus::params {
 
   validate_string($package_name)
