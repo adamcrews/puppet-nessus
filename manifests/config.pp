@@ -9,7 +9,6 @@ class nessus::config inherits nessus {
       fail('security_center and activation_code are mutually exclusive.')
     }
 
-    #default for versions without nessuscli
     if $::nessus_cli {
       $activate_command = 'nessuscli fetch --security-center'
     } else {
@@ -23,14 +22,13 @@ class nessus::config inherits nessus {
       notify  => Exec['Wait 60 seconds for Nessus activation'],
     }
   } else {
-    if ! $::nessus_activation_code {
-      # This nessus is not yet activated, let's do it!
-      if $activation_code {
-        #default for versions without nessuscli
+    if $nessus::activation_code {
+      if $::nessus_activation_code != $nessus::activation_code {
+        # This nessus is not yet activated or is using a different activation code, let's add/update it!
         if $::nessus_cli {
-          $activate_command = "nessuscli fetch --register ${activation_code}"
+          $activate_command = "nessuscli fetch --register ${nessus::activation_code}"
         } else {
-          $activate_command = "nessus-fetch --register ${activation_code}"
+          $activate_command = "nessus-fetch --register ${nessus::activation_code}"
         }
 
         exec { 'Activate Nessus':
