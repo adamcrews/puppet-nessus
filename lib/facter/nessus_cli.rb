@@ -1,12 +1,16 @@
 Facter.add('nessus_cli') do
   confine :kernel => 'Linux'
+  nessuscli_paths = [
+    '/opt/nessus/bin/nessuscli',
+    '/opt/nessus/sbin/nessuscli',
+    '/opt/nessus_agent/bin/nessuscli',
+    '/opt/nessus_agent/sbin/nessuscli'
+  ]
   setcode do
-    result = false
-    if File.exists? '/opt/nessus/bin/nessuscli'
-      result = true
-    elsif File.exists? '/opt/nessus/sbin/nessuscli'
-      result = true
+    if !Dir.glob(nessuscli_paths).empty?
+      true
+    else
+      false
     end
-    result
   end
 end
