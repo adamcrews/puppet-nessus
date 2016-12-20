@@ -1,26 +1,30 @@
 # Manage Nessus user
 define nessus::user (
-  $ensure     = 'present',
-  $password   = undef,
-  $user_base  = '/opt/nessus/var/nessus/users',
-  $admin      = false,
+  $ensure    = 'present',
+  $password  = undef,
+  $user_base = '/opt/nessus/var/nessus/users',
+  $admin     = false,
 ) {
 
-  validate_re($ensure, ['^present', '^absent'], "nessus::user \$ensure must be present or absent, not ${ensure}")
+  include '::nessus'
+
+  if $nessus::agent {
+    fail('You cannot manage nessus users on $agent nodes')
+  }
+
+  validate_re(
+    $ensure,
+    ['^present', '^absent'],
+    "nessus::user \$ensure must be present or absent, not ${ensure}")
   validate_bool($admin)
   validate_string($password)
   validate_string($user_base)
-
-  $admin_file_ensure = $admin ? {
-    true    => file,
-    default => absent,
-  }
 
   File {
     owner   => 'root',
     group   => 'root',
     mode    => '0600',
-    require => Package['nessus'],
+    require => Package[$nessus::virtual_package_name],
   }
 
   # Make sure that there is a toplevel user dir.
@@ -32,7 +36,10 @@ define nessus::user (
 
   if $ensure == 'present' {
     # create our directory structure for a user
-    file { [ "${user_base}/${title}", "${user_base}/${title}/auth", "${user_base}/${title}/reports" ]:
+    file { [
+        "${user_base}/${title}",
+        "${user_base}/${title}/auth",
+        "${user_base}/${title}/reports" ]:
       ensure => directory,
     }
 
@@ -40,19 +47,24 @@ define nessus::user (
     file { "${user_base}/${title}/auth/password":
       ensure  => file,
       content => "${password}\n",
-      notify  => Service['nessus'],
+      notify  => Service[$nessus::virtual_service_name],
     }
 
     # For the clear txt password to work, we need to ensure there is no hash file.
     file { "${user_base}/${title}/auth/hash":
       ensure => absent,
-      notify => Service['nessus'],
+      notify => Service[$nessus::virtual_service_name],
+    }
+
+    $_admin_file_ensure = $admin ? {
+      true    => file,
+      default => absent,
     }
 
     # if we are an admin, just touch the admin file
     file { "${user_base}/${title}/auth/admin":
-      ensure => $admin_file_ensure,
-      notify => Service['nessus'],
+      ensure => $_admin_file_ensure,
+      notify => Service[$nessus::virtual_service_name],
     }
 
     file { "${user_base}/${title}/auth/rules":
@@ -64,7 +76,7 @@ define nessus::user (
       ensure  => absent,
       backup  => false,
       recurse => true,
-      notify  => Service['nessus'],
+      notify  => Service[$nessus::virtual_service_name],
     }
   }
 }

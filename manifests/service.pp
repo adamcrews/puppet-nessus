@@ -5,11 +5,18 @@ class nessus::service inherits nessus {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $nessus::service_manage == true {
-    service { 'nessus':
+  validate_bool($nessus::service_manage)
+  if $nessus::service_manage {
+    validate_string($nessus::virtual_service_name)
+    validate_re(
+      $nessus::service_ensure,
+      ['^running', '^stopped'],
+      '$service_ensure must be running or stopped')
+    validate_bool($nessus::service_enable)
+
+    service { $nessus::virtual_service_name:
       ensure     => $nessus::service_ensure,
       enable     => $nessus::service_enable,
-      name       => $nessus::service_name,
       hasstatus  => true,
       hasrestart => true,
     }

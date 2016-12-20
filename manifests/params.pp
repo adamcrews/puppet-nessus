@@ -4,17 +4,27 @@
 # Rather, it only sets values for parameters to be consumed by child classes.
 class nessus::params {
 
-  $package_ensure  = 'installed'
-  $service_ensure  = 'running'
-  $service_enable  = true
-  $service_manage  = true
-  $security_center = false
+  $port                 = '8834'
+  $local_package        = false
+  $local_package_folder = '/var/tmp/nessus'
+  $package_ensure       = 'installed'
+  $package_version      = '6.9.2'
+  $package_prefix       = 'Nessus'
+  $service_ensure       = 'running'
+  $service_enable       = true
+  $service_manage       = true
+  $security_center      = false
+  $agent                = false
+  $agent_manager_port   = $port
+  $agent_package_prefix = 'NessusAgent'
 
   case $::osfamily {
     'Debian': {
 
-      $package_name              = 'Nessus'
+      $package_name              = 'nessus'
       $service_name              = 'nessusd'
+      $package_name_agent        = 'nessusagent'
+      $service_name_agent        = 'nessusagent'
       $package_archive_extension = 'deb'
       $local_package_provider    = 'dpkg'
 
@@ -35,8 +45,10 @@ class nessus::params {
     }
     'RedHat': {
 
-      $package_name              = 'Nessus'
+      $package_name              = 'nessus'
       $service_name              = 'nessusd'
+      $package_name_agent        = 'nessusagent'
+      $service_name_agent        = 'nessusagent'
       $package_archive_extension = 'rpm'
       $local_package_provider    = 'rpm'
 
@@ -54,10 +66,7 @@ class nessus::params {
     }
   }
 
-  $use_local_package_archive = false
-  $package_archive_location  = '/var/tmp/nessus'
-  $package_archive_prefix    = 'Nessus'
-  $package_archive_version   = '6.9.2'
-  $package_archive_name      = "${package_archive_prefix}-${package_archive_version}-${package_archive_suffix}_${::architecture}.${package_archive_extension}"
+  $local_package_name       = "${package_prefix}-${package_version}-${package_archive_suffix}_${::architecture}.${package_archive_extension}"
+  $local_package_name_agent = "${agent_package_prefix}-${package_version}-${package_archive_suffix}_${::architecture}.${package_archive_extension}"
 
 }

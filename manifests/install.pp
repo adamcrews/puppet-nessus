@@ -5,15 +5,19 @@ class nessus::install inherits nessus {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $nessus::use_local_package_archive == true {
-    $package_provider = $nessus::local_package_provider
-    $package_source   = "${nessus::package_archive_location}/${nessus::package_archive_name}"
+  validate_string($nessus::virtual_package_name)
+  validate_string($nessus::virtual_package_ensure)
+
+  validate_bool($nessus::local_package)
+  if $nessus::local_package {
+    validate_string($nessus::virtual_package_source)
+    validate_string($nessus::virtual_package_provider)
   }
 
-  package { $nessus::package_name:
+  package { $nessus::virtual_package_name:
     ensure   => $nessus::package_ensure,
-    source   => $package_source,
-    provider => $package_provider,
+    source   => $nessus::virtual_package_source,
+    provider => $nessus::virtual_package_provider,
   }
 
 }
