@@ -1,3 +1,7 @@
+2016-12-29 12:04:28 -0800 Vincent
+
+	* Fake commit to trigger travis
+
 2016-01-29 16:23:28 -0800 Adam Crews 
 
 	* Fix travis notifications and bump version for release (HEAD -> fix_tests)
