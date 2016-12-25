@@ -1,10 +1,14 @@
+2016-12-25 11:48:36 -0800 Adam Crews 
+
+	* Fix test framework, drop support for puppet 3 (HEAD -> update_tests)
+
 2016-01-29 16:23:28 -0800 Adam Crews 
 
-	* Fix travis notifications and bump version for release (HEAD -> fix_tests)
+	* Fix travis notifications and bump version for release (origin/fix_tests, fix_tests)
 
 2016-01-29 16:08:40 -0800 Adam Crews 
 
-	* travis updates (origin/fix_tests)
+	* travis updates
 
 2016-01-29 15:30:50 -0800 Adam Crews 
 
