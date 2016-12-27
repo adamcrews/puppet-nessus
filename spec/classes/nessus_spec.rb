@@ -78,7 +78,7 @@ describe 'nessus' do
         }}
 
         it { should contain_exec('Activate Nessus').with(
-          :command => "nessus-fetch --security-center && touch /opt/nessus/var/nessus/security_center_activated"
+          :command => "nessuscli fetch --security-center && touch /opt/nessus/var/nessus/security_center_activated"
         )}
 
         it { should contain_exec('Wait 60 seconds for Nessus activation').with(

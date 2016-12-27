@@ -10,7 +10,7 @@ class nessus::config inherits nessus {
     }
 
     #default for versions without nessuscli
-    if $::nessus_cli {
+    if $facts['nessus_cli'] == undef {
       $activate_command = 'nessuscli fetch --security-center'
     } else {
       $activate_command = 'nessus-fetch --security-center'
@@ -23,11 +23,11 @@ class nessus::config inherits nessus {
       notify  => Exec['Wait 60 seconds for Nessus activation'],
     }
   } else {
-    if ! $::nessus_activation_code {
+    if $facts['nessus_activation_code'] == undef {
       # This nessus is not yet activated, let's do it!
       if $activation_code {
         #default for versions without nessuscli
-        if $::nessus_cli {
+        if $facts['nessus_cli'] {
           $activate_command = "nessuscli fetch --register ${activation_code}"
         } else {
           $activate_command = "nessus-fetch --register ${activation_code}"

@@ -1,6 +1,6 @@
 {
   "name": "adamcrews-nessus",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "source": "https://github.com/adamcrews/puppet-nessus",
   "author": "Adam Crews",
   "license": "Apache-2.0",
@@ -10,11 +10,11 @@
   "requirements": [
     {
       "name": "pe",
-      "version_requirement": ">=3.2.0 <3.4.0"
+      "version_requirement": ">=2016.2.0"
     },
     {
       "name": "puppet",
-      "version_requirement": ">=3.0.0 <4.0.0"
+      "version_requirement": ">=4.0.0 <5.0.0"
     }
   ],
   "dependencies": [
