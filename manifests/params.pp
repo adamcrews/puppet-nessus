@@ -8,7 +8,7 @@ class nessus::params {
   $local_package        = false
   $local_package_folder = '/var/tmp/nessus'
   $package_ensure       = 'installed'
-  $package_version      = '6.9.2'
+  $package_version      = '7.1.1'
   $package_prefix       = 'Nessus'
   $service_ensure       = 'running'
   $service_enable       = true
