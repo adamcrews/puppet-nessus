@@ -1,1 +1,1 @@
-type Nessus::Package::Ensure = Enum['installed', 'present', 'absent']
+type Nessus::Package::Ensure = Enum[Nessus::Ensure, 'installed']
