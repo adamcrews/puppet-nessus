@@ -1,11 +1,11 @@
 {
-  "name": "adamcrews-nessus",
+  "name": "cmc-nessus",
   "version": "0.4.1",
   "author": "Adam Crews",
   "summary": "Nessus Module",
   "license": "Apache-2.0",
-  "source": "https://github.com/adamcrews/puppet-nessus",
-  "project_page": "https://github.com/adamcrews/puppet-nessus",
+  "source": "https://github.com/ConclusionMC/puppet-nessus",
+  "project_page": "https://github.com/ConclusionMC/puppet-nessus",
   "requirements": [
     {
       "name": "puppet",
