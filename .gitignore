@@ -1,27 +1,12 @@
-## MAC OS
-.DS_Store
-
-## TEXTMATE
-*.tmproj
-tmtags
-
-## EMACS
-*~
-\#*
-.\#*
-
-## VIM
-*.swp
-tags
-
-pkg/
-Gemfile.lock
-vendor/
-spec/fixtures/modules
-spec/fixtures/manifests
-.vagrant/
-.bundle/
-coverage/
-.ruby-version
-
-.rake_tasks
+.*.sw?
+/pkg
+/spec/fixtures
+/spec/fixtures
+/.rspec_system
+/.vagrant
+/.bundle
+/vendor
+/junit
+/log
+.yardoc
+coverage
