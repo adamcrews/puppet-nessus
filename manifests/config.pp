@@ -1,20 +1,16 @@
+#
 class nessus::config inherits nessus {
 
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $security_center {
-    if $activation_code {
+  if $nessus::security_center {
+    if $nessus::activation_code {
       fail('security_center and activation_code are mutually exclusive.')
     }
 
-    #default for versions without nessuscli
-    if $facts['nessus_cli'] == undef {
-      $activate_command = 'nessuscli fetch --security-center'
-    } else {
-      $activate_command = 'nessus-fetch --security-center'
-    }
+    $activate_command = 'nessuscli fetch --security-center'
 
     exec { 'Activate Nessus':
       path    => [ '/bin', '/opt/nessus/bin', '/opt/nessus/sbin' ],
@@ -23,15 +19,11 @@ class nessus::config inherits nessus {
       notify  => Exec['Wait 60 seconds for Nessus activation'],
     }
   } else {
-    if $facts['nessus_activation_code'] == undef {
+    if $nessus::activation_code {
       # This nessus is not yet activated, let's do it!
-      if $activation_code {
-        #default for versions without nessuscli
-        if $facts['nessus_cli'] {
-          $activate_command = "nessuscli fetch --register ${activation_code}"
-        } else {
-          $activate_command = "nessus-fetch --register ${activation_code}"
-        }
+      if $::nessus_activation_code != $nessus::activation_code {
+        # This nessus is not yet activated or is using a different activation code, let's add/update it!
+        $activate_command = "nessuscli fetch --register-only ${nessus::activation_code}"
 
         exec { 'Activate Nessus':
           path    => [ '/opt/nessus/bin', '/opt/nessus/sbin' ],
@@ -47,7 +39,7 @@ class nessus::config inherits nessus {
     path        => [ '/bin' ],
     command     => 'sleep 60',
     refreshonly => true,
-    notify      => Service[$service_name],
+    notify      => Service[$nessus::service_name],
   }
 
   #TODO:
