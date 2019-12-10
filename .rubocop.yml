@@ -141,6 +141,9 @@ Layout/AlignParameters:
 Metrics/BlockNesting:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
