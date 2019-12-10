@@ -1,16 +1,18 @@
+# Type to manage Nessus users
+#
+# === Parameters
+#
+# @param password The user's password
+# @param ensure Should the user be present or not
+# @param user_base Where are the user stored
+# @param admin Is the user an admin user
+#
 define nessus::user (
-  $ensure     = 'present',
-  $password   = undef,
-  $user_base  = '/opt/nessus/var/nessus/users',
-  $admin      = false,
+  String[1]        $password,
+  Nessus::Ensure   $ensure    = present,
+  Stdlib::Unixpath $user_base = '/opt/nessus/var/nessus/users',
+  Boolean          $admin     = false,
 ) {
-
-  validate_re($ensure, ['^present', '^absent'], "nessus::user \$ensure must be present or absent, not ${ensure}")
-  validate_bool($admin)
-  validate_string($password)
-  validate_string($user_base)
-
-
   File {
     owner   => 'root',
     group   => 'root',
@@ -45,11 +47,13 @@ define nessus::user (
     }
 
     # if we are an admin, just touch the admin file
+    $file_ensure = $admin ? {
+      true    => file,
+      default => absent,
+    }
+
     file { "${user_base}/${title}/auth/admin":
-      ensure => $admin ? {
-        true    => file,
-        default => absent,
-      },
+      ensure => $file_ensure,
       notify => Service['nessus'],
     }
 

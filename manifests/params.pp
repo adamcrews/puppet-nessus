@@ -1,5 +1,6 @@
+# Class with the default parameters
+#
 class nessus::params {
-
   $package_name    = 'Nessus'
   $package_ensure  = 'installed'
   $service_name    = 'nessusd'

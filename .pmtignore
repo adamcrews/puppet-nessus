@@ -1,0 +1,12 @@
+vendor/
+pkg/
+spec/
+tests/
+.rubocop.yaml
+.yardopts
+Gemfile
+Gemfile.lock
+Rakefile
+.pmtignore
+.gitkeep
+.gitignore

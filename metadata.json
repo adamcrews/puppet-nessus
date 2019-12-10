@@ -1,17 +1,12 @@
 {
   "name": "adamcrews-nessus",
-  "version": "0.4.0",
-  "source": "https://github.com/adamcrews/puppet-nessus",
+  "version": "0.4.1",
   "author": "Adam Crews",
-  "license": "Apache-2.0",
   "summary": "Nessus Module",
-  "description": "Nessus Module to manage the Nessus Vulnerability scanner.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/adamcrews/puppet-nessus",
   "project_page": "https://github.com/adamcrews/puppet-nessus",
   "requirements": [
-    {
-      "name": "pe",
-      "version_requirement": ">=2016.2.0"
-    },
     {
       "name": "puppet",
       "version_requirement": ">=4.0.0 <5.0.0"
@@ -27,13 +22,15 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6"
+        "6",
+        "7"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6"
+        "6",
+        "7"
       ]
     }
   ]
