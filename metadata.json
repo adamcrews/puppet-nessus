@@ -1,6 +1,6 @@
 {
   "name": "adamcrews-nessus",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "source": "https://github.com/adamcrews/puppet-nessus",
   "author": "Adam Crews",
   "license": "Apache-2.0",
