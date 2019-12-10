@@ -1,6 +1,6 @@
 # Class to manage the Nessus service
 #
-class nessus::service inherits nessus {
+class nessus::service {
 
   if $caller_module_name != $module_name {
     fail("Use of private class ${name} by ${caller_module_name}")
