@@ -13,27 +13,33 @@ describe 'nessus' do
     it { should contain_anchor('nessus::end') }
 
     describe "nessus::install on #{system}" do
-      let(:params) {{ 
-        :package_ensure => 'present', 
-        :package_name   => 'nessus', 
-      }}
+      let(:params) do
+        { 
+          :package_ensure => 'present', 
+          :package_name   => 'nessus', 
+        }
+      end
 
       it { should contain_package('nessus').with_ensure('present') }
 
       describe 'should allow package ensure to be overridden' do
-        let(:params) {{ 
-          :package_ensure => 'latest', 
-          :package_name   => 'nessus' 
-        }}
+        let(:params) do
+          { 
+            :package_ensure => 'latest', 
+            :package_name   => 'nessus' 
+          }
+        end
 
         it { should contain_package('nessus').with_ensure('latest') }
       end
 
       describe 'should allow the package name to be overriden' do
-        let(:params) {{ 
-          :package_ensure => 'present', 
-          :package_name => 'wat' 
-        }}
+        let(:params) do
+          { 
+            :package_ensure => 'present', 
+            :package_name => 'wat' 
+          }
+        end
 
         it { should contain_package('nessus').with(
           :ensure => 'present',
@@ -48,9 +54,7 @@ describe 'nessus' do
       end
 
       context 'without nessus_activation_code and with supplied activation_code' do
-        let(:params) {{
-          :activation_code => 'xxxx-xxxx-xxxx-xxxx'
-        }}
+        let(:params) {{ :activation_code => 'xxxx-xxxx-xxxx-xxxx' }}
 
         it { should contain_exec('Activate Nessus').with(
           :command => "nessus-fetch --register #{params[:activation_code]}"
@@ -65,17 +69,13 @@ describe 'nessus' do
       end
 
       context 'with nessus_activation_code' do
-        let(:facts) {{
-          :nessus_activation_code => 'yyyy-yyyy-yyyy-yyyy'
-        }}
+        let(:facts) {{ :nessus_activation_code => 'yyyy-yyyy-yyyy-yyyy' }}
 
         it { should_not contain_exec('Activate Nessus') }
       end
 
       context 'with security_center' do
-        let(:params) {{
-          :security_center => true
-        }}
+        let(:params) {{ :security_center => true }}
 
         it { should contain_exec('Activate Nessus').with(
           :command => "nessuscli fetch --security-center && touch /opt/nessus/var/nessus/security_center_activated"
@@ -91,12 +91,14 @@ describe 'nessus' do
     end
 
     describe 'nessus::service' do
-      let(:params) {{
-        :service_name   => 'nessusd',
-        :service_ensure => 'running',
-        :service_enable => true,
-        :service_manage => true,
-      }}
+      let(:params) do
+        {
+          :service_name   => 'nessusd',
+          :service_ensure => 'running',
+          :service_enable => true,
+          :service_manage => true,
+        }
+      end
 
       describe 'with defaults' do
         it { should contain_service('nessus').with(
@@ -108,18 +110,25 @@ describe 'nessus' do
 
       describe 'service_ensure' do
         describe 'when overriden' do
-          let(:params) {{ :service_name => 'nessus', :service_ensure => 'stopped' }}
+          let(:params) do
+            {
+              :service_name => 'nessus',
+              :service_ensure => 'stopped'
+            }
+          end
           it { should contain_service('nessus').with_ensure('stopped') }
         end
       end
 
       describe 'service_manage' do
-        let(:params) {{
-          :service_manage => false,
-          :service_enable => true,
-          :service_ensure => 'running',
-          :service_name   => 'nessusd',
-        }}
+        let(:params) do
+          {
+            :service_manage => false,
+            :service_enable => true,
+            :service_ensure => 'running',
+            :service_name   => 'nessusd',
+          }
+        end
 
         it 'when set to false' do
           should_not contain_service('nessus').with({

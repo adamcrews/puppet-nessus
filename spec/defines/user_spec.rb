@@ -4,11 +4,13 @@ describe 'nessus::user' do
 
   context 'when ensure => present' do
     let(:title) { 'joebob' }
-    let(:params) {{
-      :password   => 'joebobpass',
-      :ensure     => 'present',
-      :user_base  => '/tmp/foo',
-    }}
+    let(:params) do
+      {
+        :password   => 'joebobpass',
+        :ensure     => 'present',
+        :user_base  => '/tmp/foo',
+      }
+    end
 
     it { should contain_nessus__user('joebob') }
 
@@ -32,12 +34,14 @@ describe 'nessus::user' do
     it { should contain_file("#{params[:user_base]}/#{title}/auth/rules").with_ensure('file') }
 
     context 'with admin => true' do
-      let(:params) {{ 
-        :password   => 'joebobpass',
-        :ensure     => 'present',
-        :user_base  => '/tmp/foo',
-        :admin      => true 
-      }}
+      let(:params) do
+        { 
+          :password   => 'joebobpass',
+          :ensure     => 'present',
+          :user_base  => '/tmp/foo',
+          :admin      => true 
+        }
+      end
       it { should contain_file("#{params[:user_base]}/#{title}/auth/admin").with_ensure('file') }
     end
 
@@ -46,12 +50,14 @@ describe 'nessus::user' do
     end
 
     context 'with admin invalid' do
-      let(:params) {{ 
-        :password   => 'joebobpass',
-        :ensure     => 'present',
-        :user_base  => '/tmp/foo',
-        :admin      => 'Im a string!'
-      }}
+      let(:params) do 
+        { 
+          :password   => 'joebobpass',
+          :ensure     => 'present',
+          :user_base  => '/tmp/foo',
+          :admin      => 'Im a string!'
+        }
+      end
       it do
         should_not compile
         #expect{ should compile }.to raise_error(Puppet::Error)
@@ -61,22 +67,26 @@ describe 'nessus::user' do
 
   context 'when ensure => absent' do
     let(:title) { 'joebob' }
-    let(:params) {{
-      :password   => 'joebobpass',
-      :ensure     => 'absent',
-      :user_base  => '/tmp/foo',
-    }}
+    let(:params) do 
+      {
+        :password   => 'joebobpass',
+        :ensure     => 'absent',
+        :user_base  => '/tmp/foo',
+      }
+    end
 
     it { should contain_file("#{params[:user_base]}/#{title}").with_ensure('absent') }
   end
 
   context 'when ensure => invalid' do
     let(:title) { 'joebob' }
-    let(:params) {{
-      :password   => 'joebobpass',
-      :ensure     => 'invalid',
-      :user_base  => '/tmp/foo',
-    }}
+    let(:params) do
+      {
+        :password   => 'joebobpass',
+        :ensure     => 'invalid',
+        :user_base  => '/tmp/foo',
+      }
+    end
 
     it do
       #expect{ should compile }.to raise_error(Puppet::Error)
@@ -84,4 +94,3 @@ describe 'nessus::user' do
     end
   end
 end
-
