@@ -4,30 +4,16 @@
 #
 # === Parameters
 #
-# [*activation_code*]
-#   The nessus code used to activate home or professional feeds.
-#
-# [*package_name*]
-#   The name of the package to install
-#
-# [*package_ensure*]
-#   Ensure the package is installed, latest, or absent.
-#
-# [*service_name*]
-#   The name of the nessus service.
-#
-# [*service_ensure*]
-#   State if the service should be running or stopped.
-#
-# [*service_manage*]
-#   State if the service should be managed or ignored.
-#
-# === Variables
-#
-# None used other than parameters.
+# @param activation_code The nessus code used to activate home or professional feeds.
+# @param package_ensure Ensure the package is installed, latest, or absent.
+# @param package_name The name of the package to install
+# @param service_ensure State if the service should be running or stopped.
+# @param service_name The name of the nessus service.
+# @param service_enable Should the service be enabled upon boot
+# @param service_manage State if the service should be managed or ignored.
 #
 # === Examples
-#
+# @example
 #  class { nessus:
 #   activation_code => '9999-XXXX-9999-XXXX'
 #  }
@@ -41,32 +27,21 @@
 # === Authors
 #
 # Adam Crews <adam.crews@gmail.com>
+# Fabian van der Hoeven <fvanderhoeven@conclusion.nl>
 #
 # === Copyright
 #
 # Copyright 2014 Adam Crews, unless otherwise noted.
 #
 class nessus (
-  $activation_code  = undef,
-  $package_name     = $nessus::params::package_name,
-  $package_ensure   = $nessus::params::package_ensure,
-  $service_name     = $nessus::params::service_name,
-  $service_ensure   = $nessus::params::service_ensure,
-  $service_enable   = $nessus::params::service_enable,
-  $service_manage   = $nessus::params::service_manage,
-  $security_center  = $nessus::params::security_center,
+  Optional[String[1]]     $activation_code = undef,
+  Nessus::Package::Ensure $package_ensure  = $nessus::params::package_ensure,
+  String[1]               $package_name    = $nessus::params::package_name,
+  Nessus::Service::Ensure $service_ensure  = $nessus::params::service_ensure,
+  String[1]               $service_name    = $nessus::params::service_name,
+  Boolean                 $service_enable  = $nessus::params::service_enable,
+  Boolean                 $service_manage  = $nessus::params::service_manage,
 ) inherits nessus::params {
-
-  validate_string($package_name)
-  validate_string($package_ensure)
-  validate_string($service_name)
-  validate_re($service_ensure, ['^running', '^stopped'], '$service_ensure must be running or stopped')
-  validate_bool($service_manage)
-  validate_bool($security_center)
-
-  if $activation_code {
-    validate_string($activation_code)
-  }
 
   anchor { 'nessus::begin': }
   -> class { 'nessus::install': }

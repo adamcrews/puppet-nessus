@@ -1,3 +1,5 @@
+# Type to manage Nessus users
+#
 define nessus::user (
   $ensure     = 'present',
   $password   = undef,
@@ -45,11 +47,13 @@ define nessus::user (
     }
 
     # if we are an admin, just touch the admin file
+    $file_ensure = $admin ? {
+      true    => file,
+      default => absent,
+    }
+
     file { "${user_base}/${title}/auth/admin":
-      ensure => $admin ? {
-        true    => file,
-        default => absent,
-      },
+      ensure => $file_ensure,
       notify => Service['nessus'],
     }
 
