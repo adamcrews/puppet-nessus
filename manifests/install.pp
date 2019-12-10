@@ -1,3 +1,5 @@
+# Class to install the actual Nessus package
+#
 class nessus::install inherits nessus {
 
   if $caller_module_name != $module_name {
@@ -5,8 +7,8 @@ class nessus::install inherits nessus {
   }
 
   package { 'nessus':
-    ensure => $package_ensure,
-    name   => $package_name,
+    ensure => $nessus::package_ensure,
+    name   => $nessus::package_name,
   }
 
 }

@@ -68,10 +68,9 @@ class nessus (
     validate_string($activation_code)
   }
 
-  anchor { 'nessus::begin': } ->
-    class { 'nessus::install': } ->
-    class { 'nessus::config': } ->
-    class { 'nessus::service': } ->
-  anchor { 'nessus::end': }
-
+  anchor { 'nessus::begin': }
+  -> class { 'nessus::install': }
+  -> class { 'nessus::config': }
+  -> class { 'nessus::service': }
+  -> anchor { 'nessus::end': }
 }

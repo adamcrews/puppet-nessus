@@ -1,3 +1,5 @@
+# Class to activate the Nessus application
+#  Internet connection required
 #
 class nessus::config inherits nessus {
 
@@ -41,7 +43,4 @@ class nessus::config inherits nessus {
     refreshonly => true,
     notify      => Service[$nessus::service_name],
   }
-
-  #TODO:
-  # More config items will be added in the next version of this module
 }
