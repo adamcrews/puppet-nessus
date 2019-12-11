@@ -35,7 +35,7 @@
 #
 class nessus (
   Optional[String[1]]     $activation_code = undef,
-  Nessus::Package::Ensure $package_ensure  = $nessus::params::package_ensure,
+  String[1]               $package_ensure  = $nessus::params::package_ensure,
   String[1]               $package_name    = $nessus::params::package_name,
   Nessus::Service::Ensure $service_ensure  = $nessus::params::service_ensure,
   String[1]               $service_name    = $nessus::params::service_name,
